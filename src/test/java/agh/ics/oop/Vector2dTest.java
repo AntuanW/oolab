@@ -83,9 +83,9 @@ class Vector2dTest {
 
     @Test
     void oppositeTest(){
-        Vector2d firstTester = new Vector2d(1, 2);
+        Vector2d firstTester = new Vector2d(-1, 2);
         Vector2d secondTester = new Vector2d(3, 10);
-        Vector2d expectedResult = new Vector2d(2, 1);
+        Vector2d expectedResult = new Vector2d(1, -2);
         assertEquals(expectedResult, firstTester.opposite());
         assertNotEquals(expectedResult, secondTester.opposite());
     }
