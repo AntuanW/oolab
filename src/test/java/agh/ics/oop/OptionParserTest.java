@@ -8,7 +8,9 @@ class OptionParserTest {
 
     @Test
     void parseTest(){
-        String[] data = {"f", "r", "b", "fjl", "forward", "left", "l", "backward", "right", "BLAD", "f", "r", "b", "forward", "left", "l", "backward", "right", "BLAD"};
+        String[] data = {"BLAD", "f", "r", "b", "fjl", "forward", "left", "l", "backward", "right", "BLAD", "f", "r",
+                "b", "forward", "left", "l", "backward", "right", "BLAD", "BLAD"};
+
         MoveDirection[] expected = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.FORWARD,
                 MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.BACKWARD, MoveDirection.RIGHT, MoveDirection.FORWARD,
                 MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.LEFT,
