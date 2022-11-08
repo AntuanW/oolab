@@ -14,9 +14,12 @@ public class Animal {
     }
 
     void move(MoveDirection direction){
+
         Vector2d howToMove = new Vector2d(0, 0);
+
         Vector2d leftCorner = new Vector2d(0, 0);
         Vector2d rightCorner = new Vector2d(4, 4);
+
         switch (direction){
             case LEFT -> {
                 currentDirection = currentDirection.previous();
