@@ -1,18 +1,16 @@
 package agh.ics.oop;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class World {
     public static void main(String[] args) {
 
-        Animal zebra = new Animal();
-        OptionParser instructionsParser = new OptionParser();
-        MoveDirection[] moveInstrucions = instructionsParser.parse(args);
-
-        System.out.print(zebra + " -> ");
-        for (MoveDirection command : moveInstrucions){
-            zebra.move(command);
-            System.out.print(zebra + " -> ");
-        }
-        System.out.print(zebra);
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
     }
 
     public static void run(Directions[] data, int len){

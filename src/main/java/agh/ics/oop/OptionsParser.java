@@ -2,8 +2,8 @@ package agh.ics.oop;
 
 import java.util.Objects;
 
-public class OptionParser {
-    MoveDirection[] parse(String[] args){
+public class OptionsParser {
+    public static MoveDirection[] parse(String[] args){
         int size = args.length;
         int returnSize = 0;
         for (String arg : args) {

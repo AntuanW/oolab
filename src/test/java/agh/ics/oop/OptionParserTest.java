@@ -16,7 +16,7 @@ class OptionParserTest {
                 MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.LEFT,
                 MoveDirection.BACKWARD, MoveDirection.RIGHT};
 
-        OptionParser parser = new OptionParser();
+        OptionsParser parser = new OptionsParser();
         MoveDirection[] results = parser.parse(data);
 
         assertEquals(expected.length, results.length);
