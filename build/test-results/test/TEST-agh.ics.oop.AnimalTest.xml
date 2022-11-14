@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.AnimalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-11-08T12:38:47" hostname="MacBook-Air-Antoni-2.local" time="0.019">
-  <properties/>
-  <testcase name="isAtTest()" classname="agh.ics.oop.AnimalTest" time="0.012"/>
-  <testcase name="moveTest()" classname="agh.ics.oop.AnimalTest" time="0.005"/>
-  <testcase name="toStringTest()" classname="agh.ics.oop.AnimalTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

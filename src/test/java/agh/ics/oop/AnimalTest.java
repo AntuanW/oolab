@@ -14,13 +14,13 @@ class AnimalTest {
     @Test
     void toStringTest(){
 
-        assertEquals("(2,2) Północ", animal0.toString());
+        assertEquals("^", animal0.toString());
 
         animal0.move(MoveDirection.FORWARD);
         animal0.move(MoveDirection.FORWARD);
         animal0.move(MoveDirection.LEFT);
         animal0.move(MoveDirection.FORWARD);
-        assertEquals("(1,4) Zachód", animal0.toString());
+        assertEquals("<", animal0.toString());
     }
 
     @Test
@@ -66,13 +66,13 @@ class AnimalTest {
             animal2.move(pathFor2[i]);
             assertTrue(animal2.isAt(locationsFor2[i]));
         }
-        assertEquals("(0,4) Północ", animal2.toString());
+        assertEquals("^", animal2.toString());
 
         for (int i = 0; i < locationsFor3.length; i++){
             animal3.move(pathFor3[i]);
             assertTrue(animal3.isAt(locationsFor3[i]));
         }
-        assertEquals("(0,0) Zachód", animal3.toString());
+        assertEquals("<", animal3.toString());
     }
 
 }

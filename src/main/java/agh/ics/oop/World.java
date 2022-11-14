@@ -8,7 +8,7 @@ public class World {
 
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4), new Vector2d(0, 0) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
     }
@@ -48,5 +48,5 @@ public class World {
         }
     }
 
-
+//f b r l f f r r f f f f f f f f b b
 }
