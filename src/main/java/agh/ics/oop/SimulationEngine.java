@@ -18,10 +18,10 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-        System.out.println(map);
+        //System.out.println(map);
         for(int i = 0; i < directions.size(); i++){
             RectangularMap.getAnimals().get(i % RectangularMap.getAnimals().size()).move(directions.get(i));
-            System.out.println(map);
+            //System.out.println(map);
         }
     }
 }

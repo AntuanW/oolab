@@ -9,7 +9,7 @@ public class RectangularMap implements IWorldMap {
     private final int height;
     private final Vector2d lowerLeftCorner;
     private final Vector2d upperRightCorner;
-    private static List<Animal> animals = null;
+    private static List<Animal> animals;
     private final MapVisualizer visualizer;
 
     public RectangularMap(int width, int height){

@@ -48,6 +48,4 @@ public class World {
             }
         }
     }
-
-//f b r l f f r r f f f f f f f f b b
 }
