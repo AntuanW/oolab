@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +18,8 @@ class RectangularMapTest{
     static Vector2d[] positions;
     static IEngine engine;
 
-    @BeforeEach
-    void SetUpMethod() {
+    @BeforeAll
+    static void SetUpMethod() {
         args = new String[] {"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f", "b", "b"};
         directions = new OptionsParser().parse(args);
         map = new RectangularMap(10, 5);
@@ -82,5 +83,17 @@ class RectangularMapTest{
         assertTrue(second instanceof Animal);
         assertTrue(third instanceof Animal);
         assertFalse(map.objectAt(new Vector2d(7, 1)) instanceof Animal);
+    }
+
+    @Test
+    void lowerLeftTest(){
+        Vector2d result = map.lowerLeft();
+        assertEquals(new Vector2d(0, 0), result);
+    }
+
+    @Test
+    void upperRightTest(){
+        Vector2d result = map.upperRight();
+        assertEquals(new Vector2d(9, 4), result);
     }
 }
