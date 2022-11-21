@@ -19,7 +19,7 @@ public class GrassField extends AbstractWorldMap{
 
         Random generator = new Random();
         int howManyGenerated = 0;
-        while(howManyGenerated < n){
+        while(howManyGenerated <= n){
             int x = generator.nextInt( (int) Math.sqrt(10*numberOfGrass) );
             int y = generator.nextInt( (int) Math.sqrt(10*numberOfGrass) );
             Vector2d possiblePosition = new Vector2d(x, y);
