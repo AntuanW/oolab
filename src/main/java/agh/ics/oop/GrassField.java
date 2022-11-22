@@ -86,6 +86,13 @@ public class GrassField extends AbstractWorldMap{
             lowestX = Math.min(coordinates.x, lowestX);
             lowestY = Math.min(coordinates.y, lowestY);
         }
+
+        for(Grass grass: grasses){
+            Vector2d coordinates = grass.getPosition();
+            lowestX = Math.min(coordinates.x, lowestX);
+            lowestY = Math.min(coordinates.y, lowestY);
+
+        }
         return new Vector2d(lowestX, lowestY);
     }
 
@@ -106,6 +113,13 @@ public class GrassField extends AbstractWorldMap{
             Vector2d coordinates = animal.getPlace();
             biggestX = Math.max(coordinates.x, biggestX);
             biggestY = Math.max(coordinates.y, biggestY);
+        }
+
+        for(Grass grass: grasses){
+            Vector2d coordinates = grass.getPosition();
+            biggestX = Math.max(coordinates.x, biggestX);
+            biggestY = Math.max(coordinates.y, biggestY);
+
         }
         return new Vector2d(biggestX, biggestY);
     }

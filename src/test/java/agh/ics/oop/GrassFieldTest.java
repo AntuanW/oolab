@@ -41,14 +41,17 @@ class GrassFieldTest {
     }
 
     @Test
-    void lowerLeftTest(){
-        Vector2d result = map.lowerLeft();
-        assertEquals(new Vector2d(2, -1), result);
+    void ObjectAtTest(){
+        Object first = map.objectAt(new Vector2d(2, -1));
+        Object second = map.objectAt(new Vector2d(3, 7));
+        Object third = map.objectAt(new Vector2d(10, 10));
+        System.out.println(first.getClass());
+        System.out.println(second.getClass());
+        System.out.println(third.getClass());
+        assertTrue(first instanceof Animal);
+        assertTrue(second instanceof Animal);
+        assertTrue(third instanceof Animal);
+        assertFalse(map.objectAt(new Vector2d(7, 1)) instanceof Animal);
     }
 
-    @Test
-    void upperRightTest(){
-        Vector2d result = map.upperRight();
-        assertEquals(new Vector2d(10, 10), result);
-    }
 }

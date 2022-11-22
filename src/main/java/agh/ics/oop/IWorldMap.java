@@ -46,7 +46,4 @@ public interface IWorldMap {
      */
     Object objectAt(Vector2d position);
 
-    Vector2d lowerLeft();
-
-    Vector2d upperRight();
 }

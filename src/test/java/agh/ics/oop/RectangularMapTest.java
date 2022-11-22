@@ -85,15 +85,6 @@ class RectangularMapTest{
         assertFalse(map.objectAt(new Vector2d(7, 1)) instanceof Animal);
     }
 
-    @Test
-    void lowerLeftTest(){
-        Vector2d result = map.lowerLeft();
-        assertEquals(new Vector2d(0, 0), result);
-    }
 
-    @Test
-    void upperRightTest(){
-        Vector2d result = map.upperRight();
-        assertEquals(new Vector2d(9, 4), result);
-    }
+
 }
