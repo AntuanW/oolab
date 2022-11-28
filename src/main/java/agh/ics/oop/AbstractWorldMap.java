@@ -1,19 +1,21 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap{
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
 
-    protected static List<Animal> animals = new ArrayList<>();
-    protected static List<Grass> grasses = new ArrayList<>();
+    protected static Map<Vector2d, Animal> animals = new HashMap<>();
+    protected static Map<Vector2d, Grass> grasses = new HashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
 
-    public static List<Animal> getAnimals(){
+    public static Map<Vector2d, Animal> getAnimals(){
         return animals;
     }
 
-    public static List<Grass> getGrasses(){
+    public static Map<Vector2d, Grass> getGrasses(){
         return grasses;
     }
 
@@ -22,52 +24,45 @@ abstract class AbstractWorldMap implements IWorldMap{
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.getPlace().equals(position)) {
-                return animal;
-            }
+
+        if (animals.containsKey(position)){
+            return animals.get(position);
         }
-        for (Grass grass : grasses) {
-            if (grass.getPosition().equals(position)) {
-                return grass;
-            }
+        if(grasses.containsKey(position)){
+            return grasses.get(position);
         }
         return null;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.getPlace().equals(position)) {
-                return true;
-            }
+        if (animals.containsKey(position)){
+            return true;
         }
-        for (Grass grass : grasses) {
-            if (grass.getPosition().equals(position)) {
-                return true;
-            }
+
+        if(grasses.containsKey(position)){
+            return true;
         }
+
         return false;
     }
 
     @Override
     public boolean place(Animal animal) {
-        if (!isOccupied(animal.getPlace())) {
-            animals.add(animal);
+        if (canMoveTo(animal.getPlace())) {
+            animals.put(animal.getPlace(), animal);
+            animal.addObserver(this);
             return true;
         } else {
-            Object object = objectAt(animal.getPlace());
-            if (object instanceof Grass) {
-                for (Grass grass : grasses) {
-                    if (grass.getPosition().equals(animal.getPlace())) {
-                        grasses.remove(grass);
-                        break;
-                    }
-                }
-                animals.add(animal);
-            } else return false;
+            return false;
         }
-        return false;
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal = this.animals.get(oldPosition);
+        this.animals.remove(oldPosition);
+        this.animals.put(newPosition, animal);
     }
 
     @Override

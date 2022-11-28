@@ -19,7 +19,7 @@ public class GrassField extends AbstractWorldMap{
 
         Random generator = new Random();
         int howManyGenerated = 0;
-        while(howManyGenerated <= n){
+        while(howManyGenerated < n){
             int x = generator.nextInt( (int) Math.sqrt(10*numberOfGrass) );
             int y = generator.nextInt( (int) Math.sqrt(10*numberOfGrass) );
             Vector2d possiblePosition = new Vector2d(x, y);
@@ -31,7 +31,7 @@ public class GrassField extends AbstractWorldMap{
                     }
                 }
                 if(count == positions.length){
-                    grasses.add(new Grass(possiblePosition));
+                    grasses.put(possiblePosition, new Grass(possiblePosition));
                     howManyGenerated++;
                 }
             }
@@ -49,20 +49,18 @@ public class GrassField extends AbstractWorldMap{
         else{
             Object object = objectAt(position);
             if(object instanceof Grass){
-                for (Grass grass : grasses) {
-                    if (grass.getPosition().equals(position)){
-                        Random generator = new Random();
-                        int x = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
-                        int y = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
-                        while(isOccupied(new Vector2d(x, y))){
-                            x = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
-                            y = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
-                        }
-                        grasses.remove(grass);
-                        grasses.add(new Grass(new Vector2d(x, y)));
-                        return true;
+                if (grasses.containsKey(position)){
+                    Random generator = new Random();
+                    int x = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
+                    int y = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
+                    while(isOccupied(new Vector2d(x, y))){
+                        x = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
+                        y = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
                     }
-                }
+                    grasses.remove(position);
+                    grasses.put(new Vector2d(x, y), new Grass(new Vector2d(x, y)));
+                    return true;
+                    }
             }
         }
         return false;
@@ -70,24 +68,16 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public Vector2d lowerLeft(){
-        int lowestX;
-        int lowestY;
+        int lowestX = Integer.MAX_VALUE;
+        int lowestY = Integer.MAX_VALUE;
 
-        if(animals.size() != 0){
-            lowestX = animals.get(0).getPlace().x;
-            lowestY = animals.get(0).getPlace().y;
-        }else {
-            lowestX = 0;
-            lowestY = 0;
-        }
-
-        for(Animal animal : animals){
+        for(Animal animal : animals.values()){
             Vector2d coordinates = animal.getPlace();
             lowestX = Math.min(coordinates.x, lowestX);
             lowestY = Math.min(coordinates.y, lowestY);
         }
 
-        for(Grass grass: grasses){
+        for(Grass grass: grasses.values()){
             Vector2d coordinates = grass.getPosition();
             lowestX = Math.min(coordinates.x, lowestX);
             lowestY = Math.min(coordinates.y, lowestY);
@@ -98,24 +88,16 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public Vector2d upperRight(){
-        int biggestX;
-        int biggestY;
+        int biggestX = Integer.MIN_VALUE;
+        int biggestY = Integer.MIN_VALUE;
 
-        if(animals.size() != 0){
-            biggestX = animals.get(0).getPlace().x;
-            biggestY = animals.get(0).getPlace().y;
-        }else {
-            biggestX = 1;
-            biggestY = 1;
-        }
-
-        for(Animal animal : animals){
+        for(Animal animal : animals.values()){
             Vector2d coordinates = animal.getPlace();
             biggestX = Math.max(coordinates.x, biggestX);
             biggestY = Math.max(coordinates.y, biggestY);
         }
 
-        for(Grass grass: grasses){
+        for(Grass grass: grasses.values()){
             Vector2d coordinates = grass.getPosition();
             biggestX = Math.max(coordinates.x, biggestX);
             biggestY = Math.max(coordinates.y, biggestY);
