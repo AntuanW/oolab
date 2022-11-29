@@ -3,7 +3,6 @@ package agh.ics.oop;
 public class World {
     public static void main(String[] args) {
 
-
         MoveDirection[] directions = new OptionsParser().parse(args);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4), new Vector2d(11, 11)};
         IWorldMap map = new GrassField(10, positions);
