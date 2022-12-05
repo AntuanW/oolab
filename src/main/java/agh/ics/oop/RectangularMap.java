@@ -12,20 +12,19 @@ public class RectangularMap extends AbstractWorldMap {
         this.width = width;
         this.height = height;
     }
+
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return position.follows(lowerLeft()) && position.precedes(upperRight()) && !isOccupied(position);
+        return position.follows(getlowerLeft()) && position.precedes(getupperRight()) && !isOccupied(position);
     }
 
-
-
-    public Vector2d lowerLeft(){
+    @Override
+    public Vector2d getlowerLeft() {
         return new Vector2d(0, 0);
     }
 
     @Override
-    public Vector2d upperRight(){
+    public Vector2d getupperRight() {
         return new Vector2d(this.width - 1, this.height -1);
     }
-
 }

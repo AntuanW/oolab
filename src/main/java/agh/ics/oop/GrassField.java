@@ -32,6 +32,7 @@ public class GrassField extends AbstractWorldMap{
                 }
                 if(count == positions.length){
                     grasses.put(possiblePosition, new Grass(possiblePosition));
+                    mapBoundary.addPosition(possiblePosition);
                     howManyGenerated++;
                 }
             }
@@ -58,7 +59,9 @@ public class GrassField extends AbstractWorldMap{
                         y = generator.nextInt( (int)Math.sqrt(10*numberOfGrass) );
                     }
                     grasses.remove(position);
+                    mapBoundary.removePosition(position);
                     grasses.put(new Vector2d(x, y), new Grass(new Vector2d(x, y)));
+                    mapBoundary.addPosition(new Vector2d(x, y));
                     return true;
                     }
             }
@@ -67,43 +70,13 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    public Vector2d lowerLeft(){
-        int lowestX = Integer.MAX_VALUE;
-        int lowestY = Integer.MAX_VALUE;
-
-        for(Animal animal : animals.values()){
-            Vector2d coordinates = animal.getPlace();
-            lowestX = Math.min(coordinates.x, lowestX);
-            lowestY = Math.min(coordinates.y, lowestY);
-        }
-
-        for(Grass grass: grasses.values()){
-            Vector2d coordinates = grass.getPosition();
-            lowestX = Math.min(coordinates.x, lowestX);
-            lowestY = Math.min(coordinates.y, lowestY);
-
-        }
-        return new Vector2d(lowestX, lowestY);
+    public Vector2d getlowerLeft(){
+        return mapBoundary.getLowerLeft();
     }
 
     @Override
-    public Vector2d upperRight(){
-        int biggestX = Integer.MIN_VALUE;
-        int biggestY = Integer.MIN_VALUE;
-
-        for(Animal animal : animals.values()){
-            Vector2d coordinates = animal.getPlace();
-            biggestX = Math.max(coordinates.x, biggestX);
-            biggestY = Math.max(coordinates.y, biggestY);
-        }
-
-        for(Grass grass: grasses.values()){
-            Vector2d coordinates = grass.getPosition();
-            biggestX = Math.max(coordinates.x, biggestX);
-            biggestY = Math.max(coordinates.y, biggestY);
-
-        }
-        return new Vector2d(biggestX, biggestY);
+    public Vector2d getupperRight(){
+        return mapBoundary.getUpperRight();
     }
 
 }

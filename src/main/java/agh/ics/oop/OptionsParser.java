@@ -4,40 +4,33 @@ import java.util.Objects;
 
 public class OptionsParser {
     public static MoveDirection[] parse(String[] args){
+
         int size = args.length;
-        int returnSize = 0;
-        for (String arg : args) {
-            if (arg.equals("f") || arg.equals("forward") || arg.equals("b") || arg.equals("backward") || arg.equals("l") || arg.equals("left") || arg.equals("r") || arg.equals("right")) {
-                returnSize++;
-            }
-        }
-        MoveDirection[] howToMove = new MoveDirection[returnSize];
-        int currIdx = 0;
+        MoveDirection[] howToMove = new MoveDirection[size];
+
         for (int i = 0; i < size; i++){
             switch (args[i]){
                 case "f":
                 case "forward":
-                    howToMove[currIdx] = MoveDirection.FORWARD;
-                    currIdx++;
+                    howToMove[i] = MoveDirection.FORWARD;
                     break;
 
                 case "b":
                 case "backward":
-                    howToMove[currIdx] = MoveDirection.BACKWARD;
-                    currIdx++;
+                    howToMove[i] = MoveDirection.BACKWARD;
                     break;
 
                 case "l":
                 case "left":
-                    howToMove[currIdx] = MoveDirection.LEFT;
-                    currIdx++;
+                    howToMove[i] = MoveDirection.LEFT;
                     break;
 
                 case "r":
                 case "right":
-                    howToMove[currIdx] = MoveDirection.RIGHT;
-                    currIdx++;
+                    howToMove[i] = MoveDirection.RIGHT;
                     break;
+
+                default: throw new IllegalArgumentException(args[i] + " is not legal move specification");
             }
         }
         return howToMove;

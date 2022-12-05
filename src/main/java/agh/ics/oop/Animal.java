@@ -68,7 +68,9 @@ public class Animal {
         }
 
         if(map.canMoveTo(newPlace)){
-            positionChanged(this.place, newPlace);
+            for (IPositionChangeObserver observer : observers){
+                observer.positionChanged(this.place, newPlace);
+            }
             place = newPlace;
         }
     }
@@ -81,7 +83,7 @@ public class Animal {
         observers.remove(observer);
     }
 
-    private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         for (IPositionChangeObserver observer : this.observers){
             observer.positionChanged(oldPosition, newPosition);
         }

@@ -8,8 +8,8 @@ class OptionParserTest {
 
     @Test
     void parseTest(){
-        String[] data = {"BLAD", "f", "r", "b", "fjl", "forward", "left", "l", "backward", "right", "BLAD", "f", "r",
-                "b", "forward", "left", "l", "backward", "right", "BLAD", "BLAD"};
+        String[] data = {"f", "r", "b", "forward", "left", "l", "backward", "right", "f", "r",
+                "b", "forward", "left", "l", "backward", "right"};
 
         MoveDirection[] expected = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.FORWARD,
                 MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.BACKWARD, MoveDirection.RIGHT, MoveDirection.FORWARD,
@@ -24,6 +24,15 @@ class OptionParserTest {
             assertEquals(expected[i], results[i]);
         }
 
+    }
+
+    @Test
+    void exceptionTest(){
+        String[] data = {"BLAD", "f", "r", "b", "fjl", "forward", "left", "l", "backward", "right", "BLAD", "f", "r",
+                "b", "forward", "left", "l", "backward", "right", "BLAD", "BLAD"};
+        OptionsParser parser = new OptionsParser();
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> parser.parse(data));
+        assertTrue(thrown.getMessage().contains("is not legal move"));
     }
 
 }

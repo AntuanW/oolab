@@ -49,16 +49,20 @@ class RectangularMapTest{
     void placeTest(){
         Animal zebra = new Animal(map, new Vector2d(5, 1));
         Animal kot = new Animal(map, new Vector2d(0, 0));
-        Animal dzik = new Animal(map, new Vector2d(3, 2));
         boolean zebraTest = map.place(zebra);
         boolean kotTest = map.place(kot);
-        boolean dzikTest = map.place(dzik);
         assertTrue(zebraTest);
         assertTrue(kotTest);
-        assertFalse(dzikTest);
         assertTrue(map.isOccupied(new Vector2d(5, 1)));
         assertTrue(map.isOccupied(new Vector2d(0, 0)));
         assertTrue(map.isOccupied(new Vector2d(3, 2)));
+    }
+
+    @Test
+    void exceptionTesting(){
+        Animal dzik = new Animal(map, new Vector2d(3, 2));
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> map.place(dzik));
+        assertTrue(thrown.getMessage().contains("is not legal move"));
     }
 
     @Test
