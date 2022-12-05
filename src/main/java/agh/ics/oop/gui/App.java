@@ -30,10 +30,12 @@ public class App extends Application {
         gridPane.setGridLinesVisible(true);
         gridPane.setPadding(new Insets(5, 5, 5, 5));
 
-        int maxX = 11 + 2;
-        int maxY = 11 + 2;
-        int minX = 0;
-        int minY = 0;
+        Vector2d maxVector = map.getRightCorner();
+        Vector2d minVector = map.getLeftCorner();
+        int maxX = maxVector.getX() + 2;
+        int maxY = maxVector.getY() + 2;
+        int minX = minVector.getX();
+        int minY = minVector.getY();
 
 
         for (int i = 0; i < maxX; i++){

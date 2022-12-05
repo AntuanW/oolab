@@ -46,4 +46,7 @@ public interface IWorldMap {
      */
     Object objectAt(Vector2d position);
 
+    Vector2d getRightCorner();
+    Vector2d getLeftCorner();
+
 }
