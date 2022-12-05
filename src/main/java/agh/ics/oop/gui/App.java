@@ -38,29 +38,29 @@ public class App extends Application {
         int minY = minVector.getY();
 
 
-        for (int i = 0; i < maxX; i++){
+        for (int i = minX; i < maxX; i++){
             ColumnConstraints columnConstraints = new ColumnConstraints(50);
-            columnConstraints.setPercentWidth(100.0 / maxX);
+            columnConstraints.setPercentWidth(100.0 / Math.abs(maxX - minX));
             gridPane.getColumnConstraints().add(columnConstraints);
         }
 
-        for (int i = 0; i < maxY; i++){
+        for (int i = minY; i < maxY; i++){
             RowConstraints rowConstraints = new RowConstraints(50);
-            rowConstraints.setPercentHeight(100.0 / maxY);
+            rowConstraints.setPercentHeight(100.0 / Math.abs(maxY - minY));
             gridPane.getRowConstraints().add(rowConstraints);
         }
 
-        for (int i=0; i < maxY; i++){
-            for (int j =0; j < maxX; j++){
+        for (int i=0; i < Math.abs(maxY - minY); i++){
+            for (int j =0; j < Math.abs(maxX - minX); j++){
 
                 int x1 = i;
                 String text = "";
                 if(i == 0 && j == 0) text = "y/x";
-                else if (i == 0) text = String.valueOf(j-1);
-                else if (j == 0) text = String.valueOf(maxY - i - 1);
+                else if (i == 0) text = String.valueOf(j-1 - Math.abs(minX));
+                else if (j == 0) text = String.valueOf(maxY - i - 1 - Math.abs(minY));
                 else{
-                    if (map.objectAt(new Vector2d(j-1, i-1)) != null){
-                        text = map.objectAt(new Vector2d(j-1, i-1)).toString();
+                    if (map.objectAt(new Vector2d(j-1 - Math.abs(minX), i-1 - Math.abs(minY))) != null){
+                        text = map.objectAt(new Vector2d(j-1 - Math.abs(minX), i-1 - Math.abs(minY))).toString();
                     }
                     x1 = maxY-i;
                 }
