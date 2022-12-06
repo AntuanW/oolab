@@ -17,7 +17,7 @@ import java.util.List;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage){
-        try {
+
             List<String> args = getParameters().getRaw();
             MoveDirection[] directions = new OptionsParser().parse(args.toArray(new String[0]));
             Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(11, 11)};
@@ -74,9 +74,6 @@ public class App extends Application {
             Scene scene = new Scene(gridPane, 50 * maxX, 50 * maxY);
             primaryStage.setScene(scene);
             primaryStage.show();
-        }catch (IllegalArgumentException ex){
-            System.out.println(ex.getMessage());
-        }
 
     }
 }
