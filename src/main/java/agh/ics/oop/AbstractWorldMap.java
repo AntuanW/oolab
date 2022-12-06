@@ -74,12 +74,12 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
         return visualizer.draw(getlowerLeft(), getupperRight());
     }
 
-    @Override
+
     public Vector2d getRightCorner(){
         return mapBoundary.getUpperRight();
     }
 
-    @Override
+
     public Vector2d getLeftCorner(){
         return mapBoundary.getLowerLeft();
     }
