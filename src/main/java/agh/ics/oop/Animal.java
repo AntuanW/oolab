@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
-public class Animal {
+public class Animal implements IMapElement{
     private MapDirection currentDirection;
     private Vector2d place;
     private IWorldMap map;
@@ -89,4 +89,14 @@ public class Animal {
         }
     }
 
+    @Override
+    public String getImagePath() {
+        return switch (this.currentDirection){
+            case EAST -> "src/main/resources/right.png";
+            case WEST -> "src/main/resources/left.png";
+            case NORTH -> "src/main/resources/up.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case NONE -> "src/main/resources/none.png";
+        };
+    }
 }

@@ -53,18 +53,26 @@ public class App extends Application {
             for (int j = 0; j < Math.abs(maxX - minX); j++) {
 
                 String text = "";
+                boolean filled = false;
                 if (i == 0 && j == 0) text = "y/x";
                 else if (i == 0) text = String.valueOf(minX + j - 1);
                 else if (j == 0) text = String.valueOf(maxY - i - 1);
                 else {
                     if (map.objectAt(new Vector2d(minX + j - 1, maxY - i - 1)) != null) {
-                        text = map.objectAt(new Vector2d(minX + j - 1, maxY - i - 1)).toString();
+                        filled = true;
+                        GuiElementBox obj = new GuiElementBox((IMapElement) map.objectAt(new Vector2d(minX + j - 1, maxY - i - 1)));
+                        Label label = new Label();
+                        GridPane.setHalignment(label, HPos.CENTER);
+                        GridPane.setConstraints(label, j, i);
+                        gridPane.add(obj.vBox, j, i);
                     }
                 }
-                Label newLabel = new Label(text);
-                GridPane.setConstraints(newLabel, j, i);
-                GridPane.setHalignment(newLabel, HPos.CENTER);
-                gridPane.add(newLabel, j, i);
+                if (!filled) {
+                    Label newLabel = new Label(text);
+                    GridPane.setConstraints(newLabel, j, i);
+                    GridPane.setHalignment(newLabel, HPos.CENTER);
+                    gridPane.add(newLabel, j, i);
+                }
             }
 
         }
