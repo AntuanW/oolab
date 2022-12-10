@@ -5,24 +5,56 @@ import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.util.List;
 
 public class App extends Application {
+
+    private final GridPane grid = new GridPane();
+    private IWorldMap map;
+
+    private Stage primaryStage = new Stage();
     @Override
     public void start(Stage primaryStage){
-        List<String> args = getParameters().getRaw();
-        MoveDirection[] directions = new OptionsParser().parse(args.toArray(new String[0]));
-        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(11, 11)};
-        IWorldMap map = new GrassField(10, positions);
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
 
+        try{
+            TextField textField = new TextField();
+            Button startButton = getStartButton(textField);
+            HBox hBox = new HBox(grid, textField, startButton);
+            Scene scene = new Scene(hBox, 700, 700);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public Button getStartButton(TextField textField){
+        Button startButton = new Button("Start");
+
+        startButton.setOnAction((action) -> {
+            String text = textField.getText();
+            MoveDirection[] directions = new OptionsParser().parse(text.split(" "));
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(11, 11)};
+            IWorldMap map = new GrassField(10, positions);
+            IEngine engine = new SimulationEngine(directions, map, positions, this);
+            Thread engineThread = new Thread(engine::run);
+            engineThread.start();
+        });
+
+        return startButton;
+    }
+
+    public void drawMap(IWorldMap map){
+        //Stage primaryStage = new Stage();
         primaryStage.setTitle("Mapa zwierząt: ");
 
         GridPane gridPane = new GridPane();
@@ -80,5 +112,14 @@ public class App extends Application {
         Scene scene = new Scene(gridPane, 50 * maxX, 50 * maxY);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void renderMap(IWorldMap map){
+        grid.setGridLinesVisible(false);
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
+        grid.getChildren().clear();
+        grid.setGridLinesVisible(true);
+        drawMap(map);
     }
 }

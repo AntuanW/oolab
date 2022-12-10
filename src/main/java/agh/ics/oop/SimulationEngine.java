@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,14 @@ public class SimulationEngine implements IEngine{
     private final IWorldMap map;
     private final List<MoveDirection> directions;
     private final List<Animal> animals;
+    private final App app;
+    private final int moveDelay = 500;
 
-    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions){
+    public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions, App app){
         this.map = map;
         this.directions = List.of(directions);
         this.animals = new ArrayList<>();
+        this.app = app;
         for(Vector2d position : positions){
             Animal animal = new Animal(map, position);
             this.animals.add(animal);
@@ -26,11 +32,23 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-        System.out.println(map);
+        Platform.runLater(() -> {this.app.renderMap(this.map);});
+
+        try{
+            Thread.sleep(this.moveDelay);
+        }catch( InterruptedException ex){
+            System.out.println(ex.getMessage());
+        }
+
         for(int i = 0; i < directions.size(); i++){
-            Animal currentAnimal = this.animals.get(i % this.animals.size());
-            currentAnimal.move(this.directions.get(i));
-            System.out.println(map);
+            this.animals.get(i % this.animals.size()).move(this.directions.get(i));
+            Platform.runLater(() -> {this.app.renderMap(this.map);});
+
+            try{
+                Thread.sleep(this.moveDelay);
+            }catch( InterruptedException ex){
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }
